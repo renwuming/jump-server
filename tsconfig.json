@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    // "paths": { // 指定模块的路径，和baseUrl有关联，和webpack中resolve.alias配置一样
+    //   "src": [ //指定后可以在文件之直接 import * from 'src';
+    //     "./src"
+    //   ],
+    // },    
+    // "lib": [ // 编译过程中需要引入的库文件的列表
+    //   "es5",
+    //   "es2015",
+    //   "es2016",
+    //   "es2017",
+    //   "es2018",
+    //   "dom"
+    // ]
+  },
+  "exclude": ["node_modules", "dist"]
+}
