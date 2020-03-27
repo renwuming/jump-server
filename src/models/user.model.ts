@@ -14,7 +14,7 @@ export class UserSchema {
 
 export const UserModel = getModelForClass(UserSchema, {
   schemaOptions: {
-    collection: 'user',
+    collection: 'users',
     timestamps: true,
   },
 });
