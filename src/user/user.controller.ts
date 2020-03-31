@@ -74,8 +74,6 @@ export class UserController {
   @UseGuards(AuthGuard)
   async getRank(@Auth() auth) {
     const rankData = await this.userService.getRank(auth);
-    return {
-      rankData,
-    };
+    return rankData;
   }
 }
