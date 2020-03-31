@@ -83,7 +83,7 @@ export class UserService {
       .map(item => item.userInfo._id)
       .indexOf(userData.userInfo._id);
 
-    const rank = index < 0 ? '未上榜' : index;
+    const rank = index < 0 ? '未上榜' : index + 1;
 
     return {
       rankList: list.slice(0, 10),
