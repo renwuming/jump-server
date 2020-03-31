@@ -70,10 +70,12 @@ export class UserController {
     return this.userService.updateUserInfo(auth, body);
   }
 
-
   @Get('/rank')
   @UseGuards(AuthGuard)
   async getRank(@Auth() auth) {
-    return this.userService.getRank(auth);
+    const rankData = await this.userService.getRank(auth);
+    return {
+      rankData,
+    };
   }
 }

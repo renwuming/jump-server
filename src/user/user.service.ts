@@ -35,15 +35,17 @@ export class UserService {
 
   async getUserInfo(auth: AuthType) {
     const { openid } = auth;
-    const user = await UserModel.findOne({
-      openid,
-    }).lean();
+    const user = await UserModel.findOne(
+      {
+        openid,
+      },
+      {
+        score: 1,
+        userInfo: 1,
+      },
+    ).lean();
 
-    return this.pickUserInfo(user);
-  }
-
-  pickUserInfo(data) {
-    return _.pick(data, ['score', 'userInfo']);
+    return user;
   }
 
   // 根据ticket获取用户信息
@@ -63,12 +65,29 @@ export class UserService {
 
   // 获取排行榜
   async getRank(auth: AuthType) {
-    const list = await UserModel.find()
+    const list = await UserModel.find(
+      {},
+      {
+        score: 1,
+        userInfo: 1,
+      },
+    )
       .sort({
         score: -1,
       })
-      .limit(10)
+      .limit(100)
       .lean();
-    return list.map(user => this.pickUserInfo(user));
+
+    const userData = await this.getUserInfo(auth);
+    const index = list
+      .map(item => item.userInfo._id)
+      .indexOf(userData.userInfo._id);
+
+    const rank = index < 0 ? '未上榜' : index;
+
+    return {
+      rankList: list.slice(0, 10),
+      rank,
+    };
   }
 }
